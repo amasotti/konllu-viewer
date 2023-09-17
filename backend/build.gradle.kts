@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
-    kotlin("multiplatform") version "1.9.0"
+    kotlin("multiplatform") version "1.9.10"
 }
 
 group = "nlp.amasotti"
@@ -10,6 +12,7 @@ repositories {
 }
 
 kotlin {
+    @OptIn(ExperimentalWasmDsl::class)
     wasm {
         binaries.executable()
         browser {
@@ -27,3 +30,4 @@ kotlin {
         val wasmTest by getting
     }
 }
+
