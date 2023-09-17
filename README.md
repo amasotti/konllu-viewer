@@ -50,5 +50,6 @@ activated, then just follow the instructions [here](https://kotlinlang.org/docs/
 - [Google Blog - Bringing kotlin to the Web](https://developers.googleblog.com/2023/05/bringing-kotlin-to-web.html)
 - [Introducing Kotlin WASM by Zalim](https://seb.deleuze.fr/introducing-kotlin-wasm/) (*Zalim is the lead SW Engineer at Jetbrains responsible for the WASM Project*)
 - [The huge potential of Kotlin WASM](https://seb.deleuze.fr/the-huge-potential-of-kotlin-wasm/)
+- [Video] [Kotlin WASM - A first look](https://www.youtube.com/watch?v=-pqz9sKXatw)
 
 ### CoNLL-U Format
