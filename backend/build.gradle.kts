@@ -15,7 +15,11 @@ repositories {
 }
 
 kotlin {
-    jvm()
+    jvm {
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
     @OptIn(ExperimentalWasmDsl::class)
     wasm {
         binaries.executable()
