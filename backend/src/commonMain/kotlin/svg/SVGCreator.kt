@@ -58,6 +58,16 @@ class SVGCreator(private val parsedSentence: Sentence) {
                     cssClass = ""
                 )
                 svgBlock.addElement(path)
+
+
+                // Add the labels for the paths
+                val labelX = (startX + endX) / 2
+                val labelY = offsetBezierY - 10
+
+                val labelText = "${token.deprel} | ${token.upos}"
+                val label = SVGText(labelText, labelX, labelY, "deprel ${token.lemma}")
+                svgBlock.addElement(label)
+
                 offsetBezierY += 50
                 offsetBezierX += 20
             }
