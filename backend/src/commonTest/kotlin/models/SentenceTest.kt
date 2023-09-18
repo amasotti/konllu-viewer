@@ -31,10 +31,15 @@ class SentenceTest {
             deps = null,
             misc = null
         )
+        val metadata = mapOf(
+            "text" to "This is a sentence.",
+            "sentId" to "1"
+        )
 
-        val sentence = Sentence(listOf(tok1, tok2))
+        val sentence = Sentence(listOf(tok1, tok2), metadata)
         assertEquals(listOf(tok1, tok2), sentence.tokens)
         assertEquals(2, sentence.tokens.size)
+        assertEquals(metadata, sentence.metadata)
     }
 
 }

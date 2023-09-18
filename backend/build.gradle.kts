@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform") version "1.9.10"
+    id("io.gitlab.arturbosch.detekt") version("1.23.1")
 //    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 //    id("org.kodein.mock.mockmp") version "1.15.0"
 }

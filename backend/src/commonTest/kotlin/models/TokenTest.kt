@@ -31,4 +31,50 @@ class TokenTest {
         assertEquals(null, token.deps)
         assertEquals(null, token.misc)
     }
+
+    @Test
+    fun testTokenWhenBlockAppliedThenReturnsModifiedToken() {
+        // Arrange
+        val expectedToken = Token(
+            id = 1,
+            form = "word",
+            lemma = "lemma",
+            upos = "NOUN",
+            xpos = "NN",
+            feats = mapOf("Number" to "Sing"),
+            head = 2,
+            deprel = "nsubj",
+            deps = null,
+            misc = null
+        )
+        // Act
+        val token = token {
+            id = 1
+            form = "word"
+            lemma = "lemma"
+            upos = "NOUN"
+            xpos = "NN"
+            feats = mapOf("Number" to "Sing")
+            head = 2
+            deprel = "nsubj"
+            deps = null
+            misc = null
+        }
+
+        // Assert
+        assertEquals(expectedToken, token)
+    }
+
+    @Test
+    fun testTokenWhenEmptyBlockThenReturnsDefaultToken() {
+        // Arrange
+        val expectedToken = Token(0,"","","","", emptyMap(),0,"",null,null)
+        val block: TokenBuilder.() -> Unit = {}
+
+        // Act
+        val actualToken = token(block)
+
+        // Assert
+        assertEquals(expectedToken, actualToken)
+    }
 }

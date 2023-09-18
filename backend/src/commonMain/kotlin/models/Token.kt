@@ -12,3 +12,4 @@ data class Token(
     val deps: String?,
     val misc: String?
 )
+
