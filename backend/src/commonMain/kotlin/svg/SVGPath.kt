@@ -9,12 +9,27 @@ data class SVGPath(
     val lvl: Int
 ): SVGElement {
 
+    // Relationship between the two nodes
+    private var x1 = 0
+    private var x2 = 0
+    private var y1 = 0
+    private var y2 = 0
+    private var edgeDrop = 80
+
+    fun setRelations(
+        x1: Int = 0,
+        x2: Int = 0,
+        y1: Int = 0,
+        y2: Int = 0,
+        edgeDrop: Int = 0) {
+        this.x1 = x1
+        this.x2 = x2
+        this.y1 = y1
+        this.y2 = y2
+        this.edgeDrop = edgeDrop
+    }
+
     override fun render(): String {
-        val x1 = 0
-        val x2 = 0
-        val y1 = 0
-        val y2 = 0
-        val edgeDrop = 80
 
         return if (headpos == 0) {
             """

@@ -1,5 +1,5 @@
 package svg
 
-interface SVGElement {
+fun interface SVGElement {
     fun render(): String
 }

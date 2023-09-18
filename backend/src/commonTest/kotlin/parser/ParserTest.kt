@@ -80,6 +80,7 @@ class ConlluParserTest {
         println(document.sentences)
 
         assertEquals(3, document.sentences.size)
-        // ... (continue with more assertions)
+        assertEquals(13, document.sentences[0].tokens.size)
+        assertEquals(11, document.sentences[1].tokens.size)
     }
 }

@@ -1,16 +1,6 @@
-import kotlinx.browser.document
-import kotlinx.dom.appendText
-import org.w3c.dom.svg.SVGSVGElement
-import parser.ConlluParser
-import svg.generateSVG
 
-fun main() {
 
-    document.createElement("div").apply {
-        appendText("Hello, ${greet()}!<br>")
-        appendText("Hello Kotlin.. here you are !")
-    }.let(document.body!!::appendChild)
-    val raw = """
+fun getSampleText(): String = """
 # text = savitā yantraiḥ pṛthivīm aramṇāt
 # sent_id = 596923_1
 # layer=2-MA
@@ -64,29 +54,4 @@ fun main() {
 9	tasya	tad	PRON	_	Case=Gen|Gender=Neut|Number=Sing	10	obj	_	LemmaId=37875|OccId=4366035|Unsandhied=tasya
 10	veda	vid	VERB	_	Tense=Past|Mood=Ind|Person=3|Number=Sing	0	root	_	LemmaId=158058|OccId=4366036|Unsandhied=veda|Punctuation=fullStop
 
-    """.trimIndent()
-    val parsed = ConlluParser.parseConlluFile(raw)
-
-    document.createElement("p").apply {
-        appendText("Hello, ${parsed.sentences[1]}!<br>")
-    }.let(document.body!!::appendChild)
-
-    parsed.sentences.forEach {
-
-        document.createElement("p").apply {
-            appendText("${it.metadata}!<br>")
-        }.let(document.body!!::appendChild)
-
-        val svgNS = "http://www.w3.org/2000/svg"
-        val svgElement = document.createElementNS(svgNS, "svg") as SVGSVGElement
-        svgElement.innerHTML = generateSVG(it)
-        svgElement.setAttribute("width", "100%")
-        svgElement.setAttribute("height", "100%")
-        svgElement.setAttribute("id", "svg1")
-        document.body!!.appendChild(svgElement)
-    }
-
-}
-
-fun greet() = "world"
-
+""".trimIndent()

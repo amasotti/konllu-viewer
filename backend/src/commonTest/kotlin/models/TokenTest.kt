@@ -68,7 +68,7 @@ class TokenTest {
     @Test
     fun testTokenWhenEmptyBlockThenReturnsDefaultToken() {
         // Arrange
-        val expectedToken = Token(0,"","","","", emptyMap(),0,"",null,null)
+        val expectedToken = Token(0,"","","","", emptyMap(),-1,"",null,null)
         val block: TokenBuilder.() -> Unit = {}
 
         // Act

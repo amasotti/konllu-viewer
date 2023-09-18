@@ -8,11 +8,11 @@ class TokenBuilder {
     var lemma: String = ""
     var upos: String = ""
     var xpos: String = ""
-    var feats: Map<String, String> = emptyMap()
-    var head: Int = 0
+    var feats: Map<String, String>? = emptyMap()
+    var head: Int = -1
     var deprel: String = ""
     var deps: String? = null
-    var misc: String? = null
+    var misc: Map<String,String>? = null
 
     fun build(): Token {
         return Token(id, form, lemma, upos, xpos, feats, head, deprel, deps, misc)
