@@ -2,6 +2,7 @@ import kotlinx.browser.document
 import kotlinx.dom.appendText
 import org.w3c.dom.svg.SVGSVGElement
 import parser.ConlluParser
+import svg.generateSVG
 
 fun main() {
 
@@ -93,8 +94,9 @@ fun main() {
         val svgNS = "http://www.w3.org/2000/svg"
         val svgElement = document.createElementNS(svgNS, "svg") as SVGSVGElement
         svgElement.innerHTML = generateSVG(it)
-        svgElement.style.width = "100%"
-        svgElement.style.height = "100%"
+        svgElement.setAttribute("width", "450")
+        svgElement.setAttribute("height", "250")
+        svgElement.setAttribute("id", "svg1")
         document.body!!.appendChild(svgElement)
     }
 
