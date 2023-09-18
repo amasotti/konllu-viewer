@@ -8,9 +8,9 @@ data class SVGRect(val x: Int, val y: Int, val width: Int, val height: Int, val 
                 y="$y" 
                 width="$width" 
                 height="$height" 
-                fill="red" 
+                fill="#98FF98" 
                 stroke="black" 
-                stroke-width="3" 
+                stroke-width="1" 
             />
         """.trimIndent()
     }

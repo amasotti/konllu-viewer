@@ -9,29 +9,35 @@ class SVGPathTest {
     fun testSvgLineInitialization() {
         val svgPath = SVGPath(
             id = "e0",
-            end = 0,
             headpos = 0,
-            rel = Pair("q", "q"),
-            dist = 0,
-            lvl = 0
+            startX = 0,
+            endX = 0,
+            startY = 0,
+            endY = 0,
+            controlOffset = 0,
+            cssClass = "q0q0"
         )
         assertEquals("e0", svgPath.id)
-        assertEquals(0, svgPath.end)
         assertEquals(0, svgPath.headpos)
-        assertEquals(Pair("q", "q"), svgPath.rel)
-        assertEquals(0, svgPath.dist)
-        assertEquals(0, svgPath.lvl)
+        assertEquals(0, svgPath.startX)
+        assertEquals(0, svgPath.endX)
+        assertEquals(0, svgPath.startY)
+        assertEquals(0, svgPath.endY)
+        assertEquals(0, svgPath.controlOffset)
+        assertEquals("q0q0", svgPath.cssClass)
     }
 
     @Test
     fun testLineRenderingWithHeadPosZero() {
         val svgPath = SVGPath(
             id = "e0",
-            end = 0,
             headpos = 0,
-            rel = Pair("q", "q"),
-            dist = 0,
-            lvl = 0
+            startX = 0,
+            endX = 0,
+            startY = 0,
+            endY = 0,
+            controlOffset = 0,
+            cssClass = "q0q0"
         )
         assertEquals(
             """
@@ -44,11 +50,13 @@ class SVGPathTest {
     fun testRenderPathWithHeadPosNonZero() {
         val svgPath = SVGPath(
             id = "e0",
-            end = 0,
             headpos = 1,
-            rel = Pair("q", "q"),
-            dist = 0,
-            lvl = 0
+            startX = 0,
+            endX = 0,
+            startY = 0,
+            endY = 0,
+            controlOffset = 0,
+            cssClass = "q0q0"
         )
 
         assertEquals(

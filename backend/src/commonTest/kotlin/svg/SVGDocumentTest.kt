@@ -9,40 +9,40 @@ class SVGDocumentTest {
     @Test
     fun testAddElementWhenElementAddedThenSizeIncreases() {
         // Arrange
-        val svgDocument = SVGDocument()
+        val svgBlock = SVGBlock()
         val svgElement = FakeSVGElement()
 
         // Act
-        svgDocument.addElement(svgElement)
+        svgBlock.addElement(svgElement)
 
         // Assert
-        assertEquals(1, svgDocument.elements.size)
+        assertEquals(1, svgBlock.elements.size)
     }
 
 
     @Test
     fun testRemoveElementFromDocument() {
         // Arrange
-        val svgDocument = SVGDocument()
+        val svgBlock = SVGBlock()
         val svgElement = FakeSVGElement()
-        svgDocument.addElement(svgElement)
+        svgBlock.addElement(svgElement)
 
         // Act
-        svgDocument.removeElement(svgElement)
+        svgBlock.removeElement(svgElement)
 
         // Assert
-        assertEquals(0, svgDocument.elements.size)
+        assertEquals(0, svgBlock.elements.size)
     }
 
     @Test
     fun testRenderWholeDocumentWithWrapFunction() {
         // Arrange
-        val svgDocument = SVGDocument()
+        val svgBlock = SVGBlock()
         val svgElement = FakeSVGElement()
-        svgDocument.addElement(svgElement)
+        svgBlock.addElement(svgElement)
 
         // Act
-        val result = svgDocument.render()
+        val result = svgBlock.render()
 
         // Assert
         assertTrue(result.contains("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">"))

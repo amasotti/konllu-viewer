@@ -1,6 +1,6 @@
 package svg
 
-class SVGDocument: SVGElement {
+class SVGBlock: SVGElement {
     val elements: MutableList<SVGElement> = mutableListOf()
 
     fun addElement(element: SVGElement) {

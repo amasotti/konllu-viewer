@@ -76,8 +76,8 @@ object ConlluParser {
                         feats = extractFeatures(fields[5])
                         head = handleHeadRelation(fields[6])
                         deprel = fields[7]
-                        deps = ""
-                        misc = extractFeatures(fields[8])
+                        deps = fields[8]
+                        misc = extractFeatures(fields[9])
                     }
                 }
             }

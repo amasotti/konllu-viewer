@@ -2,47 +2,47 @@ package svg
 
 data class SVGPath(
     val id: String,
-    val end: Int,
+    val cssClass: String = "",
     val headpos: Int,
-    val rel: Pair<String, String>,
-    val dist: Int,
-    val lvl: Int
+    val startX: Int,
+    val endX: Int,
+    val startY: Int,
+    val endY: Int,
+    val controlOffset: Int = 80
 ): SVGElement {
-
-    // Relationship between the two nodes
-    private var x1 = 0
-    private var x2 = 0
-    private var y1 = 0
-    private var y2 = 0
-    private var edgeDrop = 80
-
-    fun setRelations(
-        x1: Int = 0,
-        x2: Int = 0,
-        y1: Int = 0,
-        y2: Int = 0,
-        edgeDrop: Int = 0) {
-        this.x1 = x1
-        this.x2 = x2
-        this.y1 = y1
-        this.y2 = y2
-        this.edgeDrop = edgeDrop
-    }
 
     override fun render(): String {
 
+        /**
+         * Paths are rendered as Bezier curves
+         * M startX startY C startX (startY + controlPointOffset) endX (endY + controlPointOffset) endX endY
+         *
+         * M (metà lunghezza rettangolo di partenza)
+         * (y di partenza rettangolo di partenza)
+         *
+         * C - tree paia di coordinate
+         *
+         * Primo punto di controllo
+         * (x come su, metà del lunghezza del rettangolo di partenza) = creerà la curva ad angolo retto
+         * (y a tua scelta, più è alto, più bassa sarà la parabola)
+         *
+         * Secondo punto di controllo
+         * (x del punto di arrivo, se vogliamo restare ad angolo retto)
+         * (se vogliamo una parabola quadrateggiante, la stessa del primo punto di controllo, vale la stessa regola)
+         *
+         * Punto di arrivo
+         * (metà lunghezza del rettangonolo di arrivo)
+         * (stesso y di partenza)
+         *
+         */
         return if (headpos == 0) {
             """
-             <path class="e${rel.first}${end} q${end}q${headpos}" d="M${x1} ${y1} L${x1} ${y2 + edgeDrop}" />
-            """.trimIndent()
+        <path id="$id" class="$cssClass" d="M$startX $startY L$startX ${startY + controlOffset}" style="stroke: black; stroke-width: 1px; fill: transparent;" />
+        """.trimIndent()
         } else {
             """
-            <path
-            class="e${rel.first}${end} e${rel.second}${headpos} q${end}q${headpos}" 
-            d="M${x1} ${y1} L${x1} ${y2 + edgeDrop} C${x1} ${y2} ${x1} ${y2} ${(x1 + x2) / 2} ${y2} ${x2} ${y2} C${x2} ${y2} ${x2} ${y2} ${x2} ${y2 + edgeDrop} ${x2} ${y1}" 
-            />
-            """.trimIndent()
-
+        <path id="$id" class="$cssClass" d="M$startX $startY C${startX - 10} $controlOffset ${endX  - 10} $controlOffset $endX $endY" style="stroke: black; stroke-width: 1px; fill: transparent;" />
+        """.trimIndent()
         }
     }
 }
