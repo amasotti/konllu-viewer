@@ -34,7 +34,8 @@ class SVGCreator(private val parsedSentence: Sentence) {
 
         // Add paths
         // Generate paths
-        var offsetBezier = 0
+        var offsetBezierY = 100
+        var offsetBezierX = 0
         for (token in parsedSentence.tokens) {
             val headId = token.head
             if (headId != -1 && headId != 0) {
@@ -44,7 +45,7 @@ class SVGCreator(private val parsedSentence: Sentence) {
                 // It should start in the middle of the rectangle
                 val startX = tokenMap[token.id]!!.first + (tokenMap[token.id]!!.second / 2)
                 // It should end in the middle of the rectangle
-                val endX = tokenMap[headId]!!.first + (tokenMap[headId]!!.second / 2)
+                val endX = tokenMap[headId]!!.first + (tokenMap[headId]!!.second / 2) - offsetBezierX
 
                 val path = SVGPath(
                     id = "path_${token.id}_$headId",
@@ -53,11 +54,12 @@ class SVGCreator(private val parsedSentence: Sentence) {
                     endX = endX,
                     startY = y,
                     endY = y,
-                    controlOffset = offsetBezier,
+                    controlOffset = offsetBezierY,
                     cssClass = ""
                 )
                 svgBlock.addElement(path)
-                offsetBezier += 50
+                offsetBezierY += 50
+                offsetBezierX += 20
             }
         }
     }

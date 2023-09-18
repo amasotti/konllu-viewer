@@ -34,6 +34,15 @@ data class SVGPath(
          * (metà lunghezza del rettangonolo di arrivo)
          * (stesso y di partenza)
          *
+         * -----------------------------------------------------
+         * Curva di Bezier a 4 punti di controllo
+         * -----------------------------------------------------
+         * M startX startY = rettangolo di partenza
+         * L startX, (a tua scelta ma più è alto il valore, prima curverà la curva)
+         * C (due valori simili o uguali) (x di arrivo, un valore a tua scelta) (x di arrivo, un valore a tua scelta)
+         * L endX endY = rettangonolo di arrivo
+         *
+         *
          */
         return if (headpos == 0) {
             """
@@ -41,7 +50,12 @@ data class SVGPath(
         """.trimIndent()
         } else {
             """
-        <path id="$id" class="$cssClass" d="M$startX $startY C${startX - 10} $controlOffset ${endX  - 10} $controlOffset $endX $endY" style="stroke: black; stroke-width: 1px; fill: transparent;" />
+            <path 
+            d="M$startX $startY 
+            L$startX $controlOffset 
+            L$endX $controlOffset
+            L$endX $endY"
+            style="stroke: black; stroke-width: 1px; fill: transparent;" />
         """.trimIndent()
         }
     }
