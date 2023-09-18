@@ -2,16 +2,15 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform") version "1.9.10"
-//    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
-//    id("org.kodein.mock.mockmp") version "1.15.0"
+}
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
 }
 
 group = "nlp.amasotti"
 version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
 
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)

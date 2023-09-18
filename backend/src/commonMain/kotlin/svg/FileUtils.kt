@@ -1299,5 +1299,5 @@ fun getSampleText() : String = """
     12	maṇi	maṇi	NOUN	_	Case=Cpd	_	_	_	LemmaId=26897|OccId=720992|Unsandhied=maṇi|UnsandhiedReconstructed=True
     13	nūpurau	nūpura	NOUN	_	Case=Nom|Gender=Masc|Number=Dual	_	_	_	LemmaId=28842|OccId=720993|Unsandhied=nūpurau|UnsandhiedReconstructed=True
 
-""".trimIndent()
+"""
 

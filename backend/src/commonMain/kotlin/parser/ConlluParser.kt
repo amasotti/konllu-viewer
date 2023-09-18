@@ -49,7 +49,7 @@ object ConlluParser {
     private fun SentenceBuilder.extractTokens(lines: List<String>) {
         tokens {
             lines.forEach { line ->
-                if (!line.isBlank() && !line.startsWith("#")) {
+                if (!line.isBlank() && !line.startsWith("#") && !line.contains(Regex("^\\d+-\\d+"))) {
                     val fields = line.split("\t")
                     token {
                         id = fields[0].toInt()

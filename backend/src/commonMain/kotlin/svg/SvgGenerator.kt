@@ -41,3 +41,16 @@ fun addLabels(sentence: Sentence, positions: List<NodePosition>): String {
 
     return svgLabels.toString()
 }
+
+fun generateSVG(sentence: Sentence): String {
+    val positions = calculateNodePositions(sentence)
+    val edges = drawEdges(sentence, positions)
+    val labels = addLabels(sentence, positions)
+
+    return """
+        <svg height="500" width="500">
+            $edges
+            $labels
+        </svg>
+    """.trimIndent()
+}
