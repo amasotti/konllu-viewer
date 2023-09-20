@@ -1,6 +1,7 @@
 package models
 
 import parser.ConlluParser
+import parser.ParserUtils
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -146,8 +147,8 @@ class TokenTest {
         // Act
         val actualToken = Token.fromString(
             line,
-            ConlluParser::extractFeatures,
-            ConlluParser::handleHeadRelation,
+            ParserUtils::extractFeatures,
+            ParserUtils::handleHeadRelation,
             false)
 
         // Assert

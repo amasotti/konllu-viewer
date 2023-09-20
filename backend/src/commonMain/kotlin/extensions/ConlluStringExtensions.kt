@@ -1,6 +1,7 @@
 package extensions
 
 import models.ConlluFieldsEnum
+import parser.ConlluParser
 
 /**
  * Retrieves a specific field from a CoNLL-U formatted line represented as a list of strings.
@@ -20,4 +21,25 @@ inline fun <reified T> List<String>.getConlluField(
     transform: (String) -> T = { it as T }): T
 {
     return transform(this[field.index])
+}
+
+
+/**
+ * Checks if a line is a valid CoNLL-U token line.
+ *
+ *
+ * @return True if the line is a valid CoNLL-U token line, false otherwise.
+ *
+ * **Checks**:
+ *
+ * - The line is not blank (nothing to parse).
+ * - The line does not start with a sentence metadata prefix (e.g. "# sent_id = 1").
+ *   In that case, the line is a comment and not a token.
+ * - The line does not contain the multiword token delimiter (e.g. "1-2").
+ *   Used to represent multiword tokens.
+ */
+fun String.isValidConlluToken(): Boolean {
+    return isNotBlank() &&
+            !startsWith(ConlluParser.SENTENCE_METADATA_PREFIX) &&
+            !contains(ConlluParser.MULTIWORD_TOKEN_DELIMITER)
 }

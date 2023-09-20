@@ -5,21 +5,19 @@ import models.document
 import models.DocumentBuilder
 import models.SentenceBuilder
 import models.Token
+import extensions.isValidConlluToken
+import parser.ParserUtils.extractMetadata
 
 object ConlluParser {
 
     private const val DOCUMENT_METADATA_PREFIX = "##"
     private const val DOCUMENT_METADATA_DELIMITER = ":"
 
-    private const val SENTENCE_METADATA_PREFIX = "#"
+    const val SENTENCE_METADATA_PREFIX = "#"
     private const val SENTENCE_METADATA_DELIMITER = "="
 
     private const val LINE_DELIMITER = "\n\n"
-    private const val FEATURE_DELIMITER = "|"
-    private val MULTIWORD_TOKEN_DELIMITER = Regex("^\\d+-\\d+")  // 1-2
-
-    private const val MISSING_INFO_PLACEHOLDER = "_"
-
+    val MULTIWORD_TOKEN_DELIMITER = Regex("^\\d+-\\d+")  // 1-2
 
 
     /**
@@ -97,53 +95,9 @@ object ConlluParser {
         tokens {
             lines.filter { it.isValidConlluToken() }
                 .forEach { line ->
-                    token { Token.fromString(line, ::extractFeatures, ::handleHeadRelation) }
+                    token { Token.fromString(line, ParserUtils::extractFeatures, ParserUtils::handleHeadRelation) }
                 }
         }
     }
-
-    /**
-     * Checks if a line is a valid CoNLL-U token line.
-     *
-     *
-     * @return True if the line is a valid CoNLL-U token line, false otherwise.
-     *
-     * **Checks**:
-     *
-     * - The line is not blank (nothing to parse).
-     * - The line does not start with a sentence metadata prefix (e.g. "# sent_id = 1").
-     *   In that case, the line is a comment and not a token.
-     * - The line does not contain the multiword token delimiter (e.g. "1-2").
-     *   Used to represent multiword tokens.
-     */
-    private fun String.isValidConlluToken(): Boolean {
-        return isNotBlank() && !startsWith(SENTENCE_METADATA_PREFIX) && !contains(MULTIWORD_TOKEN_DELIMITER)
-    }
-
-    /* ------------------------- */
-    /* Feature extraction helpers */
-    /* ------------------------- */
-
-    fun extractFeatures(feats: String): Map<String, String>? {
-        return if (feats == MISSING_INFO_PLACEHOLDER || feats.isBlank()) null
-        else feats
-            .split(FEATURE_DELIMITER)
-            .map {
-                it.split(SENTENCE_METADATA_DELIMITER)
-            }.associate {
-                it.first() to it.last()
-            }
-    }
-
-    fun handleHeadRelation(headDep: String) : Int {
-        return if (headDep == MISSING_INFO_PLACEHOLDER) -1 else headDep.toInt()
-    }
-
-    private fun extractMetadata(line: String, prefix: String, delimiter: String): Pair<String, String> {
-        val key = line.substringAfter(prefix).substringBefore(delimiter)
-        val value = line.substringAfter(delimiter)
-        return key.trim() to value.trim()
-    }
-
 
 }
