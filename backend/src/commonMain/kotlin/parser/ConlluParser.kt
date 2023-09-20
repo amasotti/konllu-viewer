@@ -10,12 +10,10 @@ import parser.ParserUtils.extractMetadata
 
 object ConlluParser {
 
+    const val SENTENCE_METADATA_PREFIX = "#" // Public since used in extensions
     private const val DOCUMENT_METADATA_PREFIX = "##"
     private const val DOCUMENT_METADATA_DELIMITER = ":"
-
-    const val SENTENCE_METADATA_PREFIX = "#"
     private const val SENTENCE_METADATA_DELIMITER = "="
-
     private const val LINE_DELIMITER = "\n\n"
     val MULTIWORD_TOKEN_DELIMITER = Regex("^\\d+-\\d+")  // 1-2
 
@@ -47,6 +45,13 @@ object ConlluParser {
         }
     }
 
+    /**
+     * Extracts the metadata from a CoNLL-U file.
+     *
+     * @param lines The lines of the CoNLL-U file.
+     *
+     * @return A [DocumentBuilder] object.
+     */
     private fun DocumentBuilder.extractDocumentMetadata(lines: List<String>) {
         apply {
             lines.filter { it.startsWith(DOCUMENT_METADATA_PREFIX) }
@@ -59,21 +64,12 @@ object ConlluParser {
     }
 
     /**
-     * Parses a list of CoNLL-U sentences into a [Document] object.
+     * Extracts the metadata from a CoNLL-U sentence.
+     *
+     * @param lines The lines of the CoNLL-U sentence.
+     *
+     * @return A [SentenceBuilder] object.
      */
-    private fun DocumentBuilder.parseSentences(chunks: List<String>)
-    {
-        sentences {
-            chunks.forEach { chunk ->
-                sentence {
-                    val lines = chunk.lines()
-                    extractSentenceMetadata(lines)
-                    extractTokens(lines)
-                }
-            }
-        }
-    }
-
     private fun SentenceBuilder.extractSentenceMetadata(lines: List<String>) {
         apply {
             lines.filter { it.startsWith(SENTENCE_METADATA_PREFIX) }
@@ -99,5 +95,26 @@ object ConlluParser {
                 }
         }
     }
+
+    /**
+     * Parses a list of CoNLL-U sentences into a [Document] object.
+     *
+     * @param chunks The CoNLL-U sentences as a list of strings.
+     * @return A [Document] object.
+     *
+     */
+    private fun DocumentBuilder.parseSentences(chunks: List<String>)
+    {
+        sentences {
+            chunks.forEach { chunk ->
+                sentence {
+                    val lines = chunk.lines()
+                    extractSentenceMetadata(lines)
+                    extractTokens(lines)
+                }
+            }
+        }
+    }
+
 
 }

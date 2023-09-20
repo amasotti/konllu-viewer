@@ -77,7 +77,6 @@ class ConlluParserTest {
     """.trimIndent()
 
         val document = ConlluParser.parseConlluFile(fileContent)
-        println(document.sentences)
 
         assertEquals(3, document.sentences.size)
         assertEquals(13, document.sentences[0].tokens.size)
