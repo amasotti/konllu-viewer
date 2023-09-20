@@ -24,10 +24,23 @@ const val BEZIER_Y_INCREMENT = 50
 
 const val LABEL_VERTICAL_OFFSET = 10
 
+const val LEMMA_CSS_CLASS = "lemma"
+const val FORM_CSS_CLASS = "form"
+const val DEPREL_CSS_CLASS = "deprel"
+const val PATH_CSS_CLASS = "relation"
+
 
 
 class SVGCreator(private val parsedSentence: Sentence) {
     private val svgBlock: SVGBlock = SVGBlock()
+
+    /**
+     * Renders the SVG
+     */
+    fun render(): String {
+        generateBlocks()
+        return svgBlock.render()
+    }
 
 
     private fun generateBlocks() {
@@ -48,14 +61,14 @@ class SVGCreator(private val parsedSentence: Sentence) {
                 token.form,
                 x + TEXT_HORIZONTAL_PADDING,
                 Y_OFFSET + TEXT_VERTICAL_PADDING,
-                "form").addToBlock(svgBlock)
+                FORM_CSS_CLASS).addToBlock(svgBlock)
 
 
             SVGText(
                     token.lemma,
                     x + TEXT_HORIZONTAL_PADDING,
                     Y_OFFSET + TEXT_VERTICAL_PADDING,
-                    "lemma")
+                    LEMMA_CSS_CLASS)
                 .addToBlock(svgBlock)
 
             // Update x-coordinate for the next rectangle
@@ -85,7 +98,7 @@ class SVGCreator(private val parsedSentence: Sentence) {
                     startY = Y_OFFSET,
                     endY = Y_OFFSET,
                     controlOffset = offsetBezierY,
-                    cssClass = ""
+                    cssClass = PATH_CSS_CLASS
                 )
                 svgBlock.addElement(path)
 
@@ -95,19 +108,13 @@ class SVGCreator(private val parsedSentence: Sentence) {
                 val labelY = offsetBezierY.minus(LABEL_VERTICAL_OFFSET)
 
                 val labelText = "${token.deprel} | ${token.upos}"
-                val label = SVGText(labelText, labelX, labelY, "deprel ${token.lemma}")
+                val label = SVGText(labelText, labelX, labelY, DEPREL_CSS_CLASS)
                 svgBlock.addElement(label)
 
                 offsetBezierY += BEZIER_Y_INCREMENT
                 offsetBezierX += BEZIER_X_INCREMENT
             }
         }
-    }
-
-
-    fun render(): String {
-        generateBlocks()
-        return svgBlock.render()
     }
 
 }
