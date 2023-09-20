@@ -1,5 +1,7 @@
 package svg
 
+import extensions.wrapSvg
+
 class SVGBlock: SVGElement {
     val elements: MutableList<SVGElement> = mutableListOf()
 

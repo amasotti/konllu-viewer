@@ -1,41 +1,67 @@
 package svg
 
+import extensions.half
 import models.Sentence
+
+const val Y_OFFSET = 250
+const val X_LENGTH_UNIT = 30
+
+const val RECT_MIN_WIDTH = 100
+const val RECT_HEIGHT = 80
+const val BETWEEN_RECT_GAP = 25
+
+const val TEXT_HORIZONTAL_PADDING = 20
+const val TEXT_VERTICAL_PADDING = 30
+
+const val BEZIER_Y_OFFSET_START = 100
+const val BEZIER_X_OFFSET_START = 0
+const val BEZIER_X_INCREMENT = 20
+const val BEZIER_Y_INCREMENT = 50
+
+const val LABEL_VERTICAL_OFFSET = 10
+
+
 
 class SVGCreator(private val parsedSentence: Sentence) {
     private val svgBlock: SVGBlock = SVGBlock()
 
 
-    private fun generateBlocks(): Unit {
+    private fun generateBlocks() {
         var x = 0  // Starting x-coordinate
-        val y = 250  // Starting y-coordinate
-        val height = 60  // Height of each rectangle
-        val gap = 25  // Gap between rectangles
         val tokenMap = mutableMapOf<Int, Pair<Int, Int>>()  // Map to store token ID and its x-coordinate
 
         for (token in parsedSentence.tokens) {
             // Create a rectangle
-            val width = maxOf(token.form.length * 30, 100)
-            val rect = SVGRect(x, y, width, height, token.form)
+            val width = maxOf(token.form.length * X_LENGTH_UNIT, RECT_MIN_WIDTH)
+            val rect = SVGRect(x, Y_OFFSET, width, RECT_HEIGHT, token.form)
             svgBlock.addElement(rect)
 
             // Store the x-coordinate and width of the rectangle for this token ID
             tokenMap[token.id] = Pair(x, width)
 
             // Create text elements inside the rectangle
-            val textYOffset = 30  // Vertical offset for text inside rectangle
-            val textXOffset = 20  // Horizontal offset for text inside rectangle
-            svgBlock.addElement(SVGText(token.form, x + textXOffset, y + textYOffset, "form"))
-            svgBlock.addElement(SVGText(token.lemma, x + textXOffset, y + textYOffset + 20, "lemma"))
+            SVGText(
+                token.form,
+                x + TEXT_HORIZONTAL_PADDING,
+                Y_OFFSET + TEXT_VERTICAL_PADDING,
+                "form").addToBlock(svgBlock)
+
+
+            SVGText(
+                    token.lemma,
+                    x + TEXT_HORIZONTAL_PADDING,
+                    Y_OFFSET + TEXT_VERTICAL_PADDING,
+                    "lemma")
+                .addToBlock(svgBlock)
 
             // Update x-coordinate for the next rectangle
-            x += width + gap
+            x += width + BETWEEN_RECT_GAP
         }
 
         // Add paths
         // Generate paths
-        var offsetBezierY = 100
-        var offsetBezierX = 0
+        var offsetBezierY = BEZIER_Y_OFFSET_START
+        var offsetBezierX = BEZIER_X_OFFSET_START
         for (token in parsedSentence.tokens) {
             val headId = token.head
             if (headId != -1 && headId != 0) {
@@ -52,8 +78,8 @@ class SVGCreator(private val parsedSentence: Sentence) {
                     headpos = headId,
                     startX = startX,
                     endX = endX,
-                    startY = y,
-                    endY = y,
+                    startY = Y_OFFSET,
+                    endY = Y_OFFSET,
                     controlOffset = offsetBezierY,
                     cssClass = ""
                 )
@@ -61,15 +87,15 @@ class SVGCreator(private val parsedSentence: Sentence) {
 
 
                 // Add the labels for the paths
-                val labelX = (startX + endX) / 2
-                val labelY = offsetBezierY - 10
+                val labelX = (startX + endX).half()
+                val labelY = offsetBezierY.minus(LABEL_VERTICAL_OFFSET)
 
                 val labelText = "${token.deprel} | ${token.upos}"
                 val label = SVGText(labelText, labelX, labelY, "deprel ${token.lemma}")
                 svgBlock.addElement(label)
 
-                offsetBezierY += 50
-                offsetBezierX += 20
+                offsetBezierY += BEZIER_Y_INCREMENT
+                offsetBezierX += BEZIER_X_INCREMENT
             }
         }
     }
@@ -79,6 +105,5 @@ class SVGCreator(private val parsedSentence: Sentence) {
         generateBlocks()
         return svgBlock.render()
     }
-
 
 }
