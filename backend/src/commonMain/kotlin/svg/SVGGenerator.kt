@@ -95,8 +95,32 @@ class SVGGenerator(private val parsedSentence: Sentence) {
             val headId = token.head
 
             if (tokenIsRoot(headId)) {
+
+                svgBlock.addPath(
+                    id = "path_${token.id}_$headId",
+                    cssClass = PATH_CSS_CLASS,
+                    headpos = headId,
+                    startX = calculateMiddleOfRectangle(token.id) + BEZIER_X_INCREMENT,
+                    endX = 0,
+                    startY = Y_OFFSET,
+                    endY = Y_OFFSET - (BEZIER_Y_INCREMENT * parsedSentence.tokens.size),
+                    controlOffset = 0
+                )
+
+                // Add the labels for the paths
+                val labelX = (calculateMiddleOfRectangle(token.id) + calculateMiddleOfRectangle(token.id) - offsetBezierX).half()
+                val labelY = (Y_OFFSET - (BEZIER_Y_INCREMENT * parsedSentence.tokens.size)).minus(LABEL_VERTICAL_OFFSET)
+
+                val labelText = "ROOT | ${token.upos}"
+
+                svgBlock.addText(
+                    text = labelText,
+                    x = labelX,
+                    y = labelY,
+                    cssClass = DEPREL_CSS_CLASS
+                )
+
                 continue
-                // TO BE IMPLEMENTED
             }
 
             val startX = calculateMiddleOfRectangle(token.id)
