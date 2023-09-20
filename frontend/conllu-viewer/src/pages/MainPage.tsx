@@ -1,23 +1,29 @@
-import {
-    Box,
-    Text,
-    Textarea,
-    Button,
-    VStack,
-    HStack,
-    useDisclosure,
-    Collapse,
-} from "@chakra-ui/react"
+import { VStack } from "@chakra-ui/react"
 import {useState} from "react";
 import { TeaserPicture } from "../components/TeaserPicture";
 import { InputOptionsStack } from "../components/InputOptionsStack.tsx";
 import {FileUploadComponent} from "../components/FileUpload.tsx";
 import {PasteArea} from "../components/PasteArea.tsx";
 import {ActionButtonStack} from "../components/ActionButtonStack.tsx";
+import myModule from "../../public/KoNLLU-Viewer-wasm.mjs";
 
 export function MainPage() {
     const [inputMethod, setInputMethod] = useState('upload');
+    const [svgHtml, setSvgHtml] = useState("");
+    const [text, setText] = useState("");
 
+    const handleTextChange = (newText: string) => {
+        setText(newText);
+    };
+
+    const resetText = () => {
+        setText("");
+    }
+
+    const handleGenerateSvg = () => {
+        const generatedSvgHtml = myModule.generateSvg(text);
+        setSvgHtml(generatedSvgHtml);
+    };
 
 
     return (
@@ -34,13 +40,15 @@ export function MainPage() {
                 {/* Choose input method */}
                 {inputMethod === "upload"
                     ? <FileUploadComponent/>
-                    : <PasteArea/>
+                    : <PasteArea onTextChange={handleTextChange}/>
                 }
 
                 <ActionButtonStack
-                    onSubmit={() => {console.log("Submitted")} }
-                    onReset={() => {console.log("Resetted")} }
+                    onSubmit={handleGenerateSvg}
+                    onReset={resetText}
                 />
+
+                <div dangerouslySetInnerHTML={{ __html: svgHtml }} />
 
             </VStack>
         </>
