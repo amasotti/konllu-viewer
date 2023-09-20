@@ -41,9 +41,13 @@ class SVGPathTest {
             cssClass = "q0q0"
         )
         assertEquals(
-            """
-            <path id="e0" class="q0q0" d="M0 0 L0 0" style="stroke: black; stroke-width: 1px; fill: transparent;" />
-        """.trimIndent(), svgPath.render()
+            """<path 
+id="e0" 
+class="q0q0" 
+d="M0 0 L0 0" 
+style="stroke: black; stroke-width: 1px; fill: transparent;" />
+""".trimIndent(),
+            svgPath.render()
         )
     }
 
@@ -61,14 +65,13 @@ class SVGPathTest {
         )
 
         assertEquals(
-            """
-            <path 
-            d="M0 0 
-            L0 0 
-            L0 0
-            L0 0"
-            style="stroke: black; stroke-width: 1px; fill: transparent;" />
-            """.trimIndent(), svgPath.render()
+            """<path 
+id="e0"
+d="M0 0 
+L0 0 
+L0 0
+L0 0"
+style="stroke: black; stroke-width: 1px; fill: transparent;" />""".trimIndent(), svgPath.render()
         )
     }
 }

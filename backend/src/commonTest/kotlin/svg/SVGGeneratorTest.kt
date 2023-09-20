@@ -20,7 +20,7 @@ class SVGGeneratorTest {
         )
         val svgGenerator = SVGGenerator(sentence)
         val expectedSVG = """
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="600" height="500">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="750" height="500">
 <rect 
     x="0" 
     y="250" 
@@ -68,6 +68,7 @@ class SVGGeneratorTest {
     stroke-width="1px" 
 >be</text>
 <path 
+id="path_1_2"
 d="M60 250 
 L60 100 
 L195 100
@@ -80,6 +81,18 @@ style="stroke: black; stroke-width: 1px; fill: transparent;" />
     fill="black" 
     stroke-width="1px" 
 >nsubj | NOUN</text>
+<path 
+id="path_2_0" 
+class="relation" 
+d="M215 250 L215 150" 
+style="stroke: black; stroke-width: 1px; fill: transparent;" />
+<text 
+    x="185" 
+    y="140" 
+    class="deprel"
+    fill="black" 
+    stroke-width="1px" 
+>ROOT | VERB</text>
 </svg>"""
 
         // Act
