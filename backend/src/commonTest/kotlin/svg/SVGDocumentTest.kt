@@ -1,5 +1,6 @@
 package svg
 
+import svg.models.SVGBlock
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

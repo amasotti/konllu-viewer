@@ -1,4 +1,4 @@
-package svg
+package svg.models
 
 import extensions.wrapSvg
 

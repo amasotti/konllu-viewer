@@ -1,4 +1,4 @@
-package svg
+package svg.models
 
 interface SVGElement {
     fun render(): String

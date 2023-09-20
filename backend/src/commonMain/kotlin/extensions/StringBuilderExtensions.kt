@@ -1,6 +1,6 @@
 package extensions
 
-import svg.SVGElement
+import svg.models.SVGElement
 
 const val SVG_WIDTH_FACTOR = 75
 const val SVG_HEIGHT = 500

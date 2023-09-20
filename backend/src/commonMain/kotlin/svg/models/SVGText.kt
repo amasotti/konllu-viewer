@@ -1,4 +1,4 @@
-package svg
+package svg.models
 
 data class SVGText(val text: String, val x: Int, val y: Int, val cssClass: String = "") : SVGElement {
 

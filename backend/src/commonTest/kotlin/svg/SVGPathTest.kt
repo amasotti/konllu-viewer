@@ -1,5 +1,6 @@
 package svg
 
+import svg.models.SVGPath
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

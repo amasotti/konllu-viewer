@@ -1,4 +1,4 @@
-package svg
+package svg.models
 
 data class SVGRect(val x: Int, val y: Int, val width: Int, val height: Int, val text: String) : SVGElement {
     override fun render(): String {

@@ -1,4 +1,4 @@
-package svg
+package svg.models
 
 data class SVGPath(
     val id: String,

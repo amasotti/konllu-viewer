@@ -2,6 +2,10 @@ package svg
 
 import extensions.half
 import models.Sentence
+import svg.models.SVGBlock
+import svg.models.SVGPath
+import svg.models.SVGRect
+import svg.models.SVGText
 
 const val Y_OFFSET = 250
 const val X_LENGTH_UNIT = 30
