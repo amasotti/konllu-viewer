@@ -1,13 +1,18 @@
 package models
 
+import extensions.toPrettyString
+
 
 data class Sentence(
     val tokens: List<Token>,
     val metadata: Map<String,String>
 ){
     override fun toString(): String {
-        val metadataRepr = metadata.entries.joinToString(separator = "\n") { "${it.key}: ${it.value}" }
-        return tokens.joinToString(separator = "\n") { it.toString() } + "\n\n" + metadataRepr
+        return buildString {
+            append(tokens.joinToString("\n"))
+            append("\n\n")
+            append(metadata.toPrettyString())
+        }
     }
 }
 

@@ -1,39 +1,9 @@
 package parser
 
-import models.Document
-import models.document
-import models.DocumentBuilder
-import models.SentenceBuilder
+import models.*
 
 
 object ConlluParser {
-
-    /**
-     * Field indices in CoNLL-U format
-     *
-     * Token(
-     *  id=1,
-     *  form=askambhane,
-     *  lemma=askambhana,
-     *  upos=NOUN,
-     *  xpos=_,
-     *  feats={Case=Loc, Gender=Neut, Number=Sing},
-     *  head=4,
-     *  deprel=obl:loc,
-     *  deps=, misc=null
-     *  )
-     *
-     */
-    private const val FIELD_ID = 0
-    private const val FIELD_FORM = 1
-    private const val FIELD_LEMMA = 2
-    private const val FIELD_UPOS = 3
-    private const val FIELD_XPOS = 4
-    private const val FIELD_FEATS = 5
-    private const val FIELD_HEAD = 6
-    private const val FIELD_DEPREL = 7
-    private const val FIELD_DEPS = 8
-    private const val FIELD_MISC = 9
 
     fun parseConlluFile(fileContent: String): Document {
         val documentLines = fileContent.lines()
@@ -86,31 +56,7 @@ object ConlluParser {
                     !line.startsWith("#") &&  // Then is a comment
                     !line.contains(Regex("^\\d+-\\d+")) // Then is a multiword token to be ignored
                     ) {
-                    val fields = line.split("\t")
-                    println("Line: $line\n\n")
-                    println("FieldSize: " + fields.size + "\n")
-                    println("ID would be: " + fields[FIELD_ID].toInt() + "\n")
-                    println("Form would be: " + fields[FIELD_FORM] + "\n")
-                    println("Lemma would be: " + fields[FIELD_LEMMA] + "\n")
-                    println("UPOS would be: " + fields[FIELD_UPOS] + "\n")
-                    println("XPOS would be: " + fields[FIELD_XPOS] + "\n")
-                    println("Feats would be: " + extractFeatures(fields[FIELD_FEATS]) + "\n")
-                    println("Head would be: " + handleHeadRelation(fields[FIELD_HEAD]) + "\n")
-                    println("Deprel would be: " + fields[FIELD_DEPREL] + "\n")
-                    println("Deps would be: " + fields[FIELD_DEPS] + "\n")
-                    println("Misc would be: " + extractFeatures(fields[FIELD_MISC]) + "\n")
-                    token {
-                        id = fields[FIELD_ID].toInt()
-                        form = fields[FIELD_FORM]
-                        lemma = fields[FIELD_LEMMA]
-                        upos = fields[FIELD_UPOS]
-                        xpos = fields[FIELD_XPOS]
-                        feats = extractFeatures(fields[FIELD_FEATS])
-                        head = handleHeadRelation(fields[FIELD_HEAD])
-                        deprel = fields[FIELD_DEPREL]
-                        deps = fields[FIELD_DEPS]
-                        misc = extractFeatures(fields[FIELD_MISC])
-                    }
+                    token { Token.fromString(line, ::extractFeatures, ::handleHeadRelation) }
                 }
             }
         }
