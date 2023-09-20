@@ -45,7 +45,7 @@ class SVGDocumentTest {
         val result = svgBlock.render()
 
         // Assert
-        assertTrue(result.contains("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">"))
+        assertTrue(result.contains("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"75\" height=\"500\">"))
         assertTrue(result.contains("</svg>"))
         assertTrue(result.contains("<fake-element />"))
         assertEquals(3, result.lines().size)

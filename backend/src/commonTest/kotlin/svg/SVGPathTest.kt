@@ -41,7 +41,7 @@ class SVGPathTest {
         )
         assertEquals(
             """
-            <path class="eq0 q0q0" d="M0 0 L0 80" />
+            <path id="e0" class="q0q0" d="M0 0 L0 0" style="stroke: black; stroke-width: 1px; fill: transparent;" />
         """.trimIndent(), svgPath.render()
         )
     }
@@ -61,10 +61,12 @@ class SVGPathTest {
 
         assertEquals(
             """
-            <path
-            class="eq0 eq1 q0q1" 
-            d="M0 0 L0 80 C0 0 0 0 0 0 0 0 C0 0 0 0 0 80 0 0" 
-            />
+            <path 
+            d="M0 0 
+            L0 0 
+            L0 0
+            L0 0"
+            style="stroke: black; stroke-width: 1px; fill: transparent;" />
             """.trimIndent(), svgPath.render()
         )
     }

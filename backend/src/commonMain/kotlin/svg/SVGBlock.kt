@@ -13,7 +13,7 @@ class SVGBlock: SVGElement {
 
     override fun render(): String = buildString  {
         wrapSvg(elements) {
-            it.render()
+            it.render().trim()
         }
     }
 
