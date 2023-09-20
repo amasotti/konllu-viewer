@@ -43,21 +43,21 @@ data class Token(
 
 
             return Token(
-                id = fields.getConlluField(ConlluField.ID) { it.toInt() },
-                form = fields.getConlluField(ConlluField.FORM),
-                lemma = fields.getConlluField(ConlluField.LEMMA),
-                upos = fields.getConlluField(ConlluField.UPOS),
-                xpos = fields.getConlluField(ConlluField.XPOS),
-                feats = fields.getConlluField(ConlluField.FEATS) { extractFeatures(it) },
-                head = fields.getConlluField(ConlluField.HEAD) { handleHeadRelation(it) },
-                deprel = fields.getConlluField(ConlluField.DEPREL),
-                deps = fields.getConlluField(ConlluField.DEPS),
-                misc = fields.getConlluField(ConlluField.MISC) { extractFeatures(it) }
+                id = fields.getConlluField(ConlluFieldsEnum.ID) { it.toInt() },
+                form = fields.getConlluField(ConlluFieldsEnum.FORM),
+                lemma = fields.getConlluField(ConlluFieldsEnum.LEMMA),
+                upos = fields.getConlluField(ConlluFieldsEnum.UPOS),
+                xpos = fields.getConlluField(ConlluFieldsEnum.XPOS),
+                feats = fields.getConlluField(ConlluFieldsEnum.FEATS) { extractFeatures(it) },
+                head = fields.getConlluField(ConlluFieldsEnum.HEAD) { handleHeadRelation(it) },
+                deprel = fields.getConlluField(ConlluFieldsEnum.DEPREL),
+                deps = fields.getConlluField(ConlluFieldsEnum.DEPS),
+                misc = fields.getConlluField(ConlluFieldsEnum.MISC) { extractFeatures(it) }
             )
         }
 
         private fun validate(line: String, fields: List<String>) {
-            require(fields.size == ConlluField.entries.size) {
+            require(fields.size == ConlluFieldsEnum.entries.size) {
                 "Invalid CoNLL-U line: $line"
             }
         }
@@ -71,18 +71,22 @@ data class Token(
          *
          * @return Unit
          */
-        private fun debugLog(fields: List<String>, extractFeatures: FeatureExtractor, handleHeadRelation: (String) -> Int) {
+        private fun debugLog(
+            fields: List<String>,
+            extractFeatures: FeatureExtractor,
+            handleHeadRelation: (String) -> Int)
+        {
             println("FieldSize: " + fields.size + "\n")
-            println("ID: " + fields.getConlluField(ConlluField.ID) + "\n")
-            println("Form: " + fields.getConlluField(ConlluField.FORM) + "\n")
-            println("Lemma: " + fields.getConlluField(ConlluField.LEMMA) + "\n")
-            println("UPOS: " + fields.getConlluField(ConlluField.UPOS) + "\n")
-            println("XPOS: " + fields.getConlluField(ConlluField.XPOS) + "\n")
-            println("Feats: " + fields.getConlluField(ConlluField.FEATS) { extractFeatures(it) } + "\n")
-            println("Head: " + fields.getConlluField(ConlluField.HEAD) { handleHeadRelation(it) } + "\n")
-            println("Deprel: " + fields.getConlluField(ConlluField.DEPREL) + "\n")
-            println("Deps: " + fields.getConlluField(ConlluField.DEPS) + "\n")
-            println("Misc: " + fields.getConlluField(ConlluField.MISC) { extractFeatures(it) } + "\n")
+            println("ID: " + fields.getConlluField(ConlluFieldsEnum.ID) + "\n")
+            println("Form: " + fields.getConlluField(ConlluFieldsEnum.FORM) + "\n")
+            println("Lemma: " + fields.getConlluField(ConlluFieldsEnum.LEMMA) + "\n")
+            println("UPOS: " + fields.getConlluField(ConlluFieldsEnum.UPOS) + "\n")
+            println("XPOS: " + fields.getConlluField(ConlluFieldsEnum.XPOS) + "\n")
+            println("Feats: " + fields.getConlluField(ConlluFieldsEnum.FEATS) { extractFeatures(it) } + "\n")
+            println("Head: " + fields.getConlluField(ConlluFieldsEnum.HEAD) { handleHeadRelation(it) } + "\n")
+            println("Deprel: " + fields.getConlluField(ConlluFieldsEnum.DEPREL) + "\n")
+            println("Deps: " + fields.getConlluField(ConlluFieldsEnum.DEPS) + "\n")
+            println("Misc: " + fields.getConlluField(ConlluFieldsEnum.MISC) { extractFeatures(it) } + "\n")
         }
 
     }

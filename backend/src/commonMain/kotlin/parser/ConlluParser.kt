@@ -1,6 +1,11 @@
 package parser
 
-import models.*
+import models.Document
+import models.document
+import models.DocumentBuilder
+import models.SentenceBuilder
+import models.Token
+
 
 
 object ConlluParser {

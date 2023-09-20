@@ -17,7 +17,7 @@ package models
  *  )
  *  ```
  */
-enum class ConlluField(val index: Int) {
+enum class ConlluFieldsEnum(val index: Int) {
     // The index of the field in the CoNLL-U formatted sentence
     ID(0),
 
