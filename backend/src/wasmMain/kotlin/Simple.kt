@@ -7,7 +7,6 @@ import svg.SVGCreator
 fun main() {
 
     document.createElement("div").apply {
-        appendText("Hello, ${greet()}!<br>")
         appendText("Hello Kotlin.. here you are !")
     }.let(document.body!!::appendChild)
     val raw = getSampleText()
@@ -36,7 +35,3 @@ fun generateSvg(fileContent: String) : String {
     val svgGenerator = SVGCreator(parsed.sentences[0])
     return svgGenerator.render()
 }
-
-
-fun greet() = "world"
-

@@ -1,6 +1,10 @@
 package parser
 
-import models.*
+import models.Document
+import models.document
+import models.DocumentBuilder
+import models.SentenceBuilder
+
 
 object ConlluParser {
 
@@ -20,16 +24,16 @@ object ConlluParser {
      *  )
      *
      */
-    const val FIELD_ID = 0
-    const val FIELD_FORM = 1
-    const val FIELD_LEMMA = 2
-    const val FIELD_UPOS = 3
-    const val FIELD_XPOS = 4
-    const val FIELD_FEATS = 5
-    const val FIELD_HEAD = 6
-    const val FIELD_DEPREL = 7
-    const val FIELD_DEPS = 8
-    const val FIELD_MISC = 9
+    private const val FIELD_ID = 0
+    private const val FIELD_FORM = 1
+    private const val FIELD_LEMMA = 2
+    private const val FIELD_UPOS = 3
+    private const val FIELD_XPOS = 4
+    private const val FIELD_FEATS = 5
+    private const val FIELD_HEAD = 6
+    private const val FIELD_DEPREL = 7
+    private const val FIELD_DEPS = 8
+    private const val FIELD_MISC = 9
 
     fun parseConlluFile(fileContent: String): Document {
         val documentLines = fileContent.lines()
@@ -78,12 +82,12 @@ object ConlluParser {
         tokens {
             lines.forEach { line ->
                 if (
-                    !line.isBlank() && // Then is a delimiter
+                    line.isNotBlank() && // Then is a delimiter
                     !line.startsWith("#") &&  // Then is a comment
                     !line.contains(Regex("^\\d+-\\d+")) // Then is a multiword token to be ignored
                     ) {
                     val fields = line.split("\t")
-                    println("Line: $line" + "\n")
+                    println("Line: $line\n\n")
                     println("FieldSize: " + fields.size + "\n")
                     println("ID would be: " + fields[FIELD_ID].toInt() + "\n")
                     println("Form would be: " + fields[FIELD_FORM] + "\n")
