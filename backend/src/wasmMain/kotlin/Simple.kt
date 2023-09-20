@@ -12,8 +12,6 @@ fun main() {
     val raw = getSampleText()
     val parsed = ConlluParser.parseConlluFile(raw)
 
-    //println("PARSED: ${parsed.sentences[0].tokens[0]}")
-
     document.createElement("p").apply {
         appendText("Hello, ${parsed.sentences[0]}!<br>")
     }.let(document.body!!::appendChild)

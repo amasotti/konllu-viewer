@@ -39,17 +39,11 @@ object ConlluParser {
                 .joinToString("\n") // Join all lines into a single string
                 .split(LINE_DELIMITER) // Split into sentences
 
-//        println("METADATA CHUNKS $metadataChunks")
-//        println("SENTENCE CHUNKS $sentenceChunks")
-
         // Parse the metadata and sentences
-        val doc = document {
+        return document {
             extractDocumentMetadata(metadataChunks)
             parseSentences(sentenceChunks)
         }
-        println(doc.metadata.toPrettyString())
-        println("DOC $doc" )
-        return doc
     }
 
     /**
