@@ -1,6 +1,10 @@
 
 
 fun getSampleText(): String = """
+## text: Ṛgveda
+## text_id: 450
+## chapter: ṚV, 10, 188
+## chapter_id: 9976
 # text = savitā yantraiḥ pṛthivīm aramṇāt
 # sent_id = 596923_1
 # layer=2-MA

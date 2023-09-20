@@ -8,19 +8,19 @@ fun svg(block: SVGBlock.() -> Unit): SVGBlock {
 }
 
 // DSL function for SVGRect from SVGBlock
-fun SVGBlock.rect(x: Int, y: Int, width: Int, height: Int, text:String) {
+fun SVGBlock.addRect(x: Int, y: Int, width: Int, height: Int, text:String) {
     val rect = SVGRect(x, y, width, height, text)
     addElement(rect)
 }
 
 
 // DSL function for SVGText from SVGBlock
-fun SVGBlock.text(text: String, x: Int, y: Int, cssclass: String) {
-    val textElement = SVGText(text, x, y, cssclass)
+fun SVGBlock.addText(text: String, x: Int, y: Int, cssClass: String) {
+    val textElement = SVGText(text, x, y, cssClass)
     addElement(textElement)
 }
 
-fun SVGBlock.path(
+fun SVGBlock.addPath(
     id: String, cssClass: String, headpos: Int,
     startX: Int, endX: Int,
     startY: Int, endY: Int,

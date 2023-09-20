@@ -39,7 +39,7 @@ class SVGGeneratorTest {
 >word</text>
 <text 
     x="20" 
-    y="280" 
+    y="310" 
     class="lemma"
     fill="black" 
     stroke-width="1px" 
@@ -62,7 +62,7 @@ class SVGGeneratorTest {
 >is</text>
 <text 
     x="165" 
-    y="280" 
+    y="310" 
     class="lemma"
     fill="black" 
     stroke-width="1px" 

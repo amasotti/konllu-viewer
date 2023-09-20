@@ -6,6 +6,7 @@ import models.DocumentBuilder
 import models.SentenceBuilder
 import models.Token
 import extensions.isValidConlluToken
+import extensions.toPrettyString
 import parser.ParserUtils.extractMetadata
 
 object ConlluParser {
@@ -29,20 +30,26 @@ object ConlluParser {
         val lines = fileContent.lines()
 
         // Find the index of the first sentence
-        val sentenceStartIndex = lines.indexOfFirst { it.startsWith(SENTENCE_METADATA_PREFIX) }
+        val sentenceStartIndex = lines.indexOfLast { it.startsWith(DOCUMENT_METADATA_PREFIX) }
 
         // Split the file into metadata and sentences
-        val metadataChunks : List<String> = lines.take(sentenceStartIndex)
+        val metadataChunks : List<String> = lines.take(maxOf(sentenceStartIndex + 1, 0))
         val sentenceChunks: List<String> = lines
                 .drop(sentenceStartIndex) // Ignore metadata
                 .joinToString("\n") // Join all lines into a single string
                 .split(LINE_DELIMITER) // Split into sentences
 
+//        println("METADATA CHUNKS $metadataChunks")
+//        println("SENTENCE CHUNKS $sentenceChunks")
+
         // Parse the metadata and sentences
-        return document {
+        val doc = document {
             extractDocumentMetadata(metadataChunks)
             parseSentences(sentenceChunks)
         }
+        println(doc.metadata.toPrettyString())
+        println("DOC $doc" )
+        return doc
     }
 
     /**
@@ -53,13 +60,12 @@ object ConlluParser {
      * @return A [DocumentBuilder] object.
      */
     private fun DocumentBuilder.extractDocumentMetadata(lines: List<String>) {
-        apply {
-            lines.filter { it.startsWith(DOCUMENT_METADATA_PREFIX) }
-                .map {
-                    extractMetadata(it, DOCUMENT_METADATA_PREFIX, DOCUMENT_METADATA_DELIMITER)
-                }.forEach {
-                    metadata(it.first, it.second)
-                }
+
+        val metadataLines = lines.filter { it.startsWith(DOCUMENT_METADATA_PREFIX) }
+
+        metadataLines.forEach {
+            val (key, value) = extractMetadata(it, DOCUMENT_METADATA_PREFIX, DOCUMENT_METADATA_DELIMITER)
+            metadata(key, value)
         }
     }
 
@@ -71,14 +77,13 @@ object ConlluParser {
      * @return A [SentenceBuilder] object.
      */
     private fun SentenceBuilder.extractSentenceMetadata(lines: List<String>) {
-        apply {
-            lines.filter { it.startsWith(SENTENCE_METADATA_PREFIX) }
-                .map {
-                    extractMetadata(it, SENTENCE_METADATA_PREFIX, SENTENCE_METADATA_DELIMITER)
-                }.forEach {
-                    metadata(it.first, it.second)
-                }
+
+        val sentenceLines = lines.filter { it.startsWith(SENTENCE_METADATA_PREFIX) }
+        sentenceLines.forEach {
+            val (key, value) = extractMetadata(it, SENTENCE_METADATA_PREFIX, SENTENCE_METADATA_DELIMITER)
+            metadata(key, value)
         }
+
     }
 
     /**
@@ -88,10 +93,25 @@ object ConlluParser {
      *
      */
     private fun SentenceBuilder.extractTokens(lines: List<String>) {
+
+        val validLines = lines.filter { it.isValidConlluToken() }
+
         tokens {
-            lines.filter { it.isValidConlluToken() }
+            validLines
                 .forEach { line ->
-                    token { Token.fromString(line, ParserUtils::extractFeatures, ParserUtils::handleHeadRelation) }
+                    val tok = Token.fromString(line, ParserUtils::extractFeatures, ParserUtils::handleHeadRelation)
+                    token {
+                        id = tok.id
+                        form = tok.form
+                        lemma = tok.lemma
+                        upos = tok.upos
+                        xpos = tok.xpos
+                        feats = tok.feats
+                        head = tok.head
+                        deprel = tok.deprel
+                        deps = tok.deps
+                        misc = tok.misc
+                    }
                 }
         }
     }

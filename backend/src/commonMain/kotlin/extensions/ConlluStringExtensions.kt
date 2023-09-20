@@ -40,6 +40,7 @@ inline fun <reified T> List<String>.getConlluField(
  */
 fun String.isValidConlluToken(): Boolean {
     return isNotBlank() &&
-            !startsWith(ConlluParser.SENTENCE_METADATA_PREFIX) &&
-            !contains(ConlluParser.MULTIWORD_TOKEN_DELIMITER)
+           !startsWith(ConlluParser.SENTENCE_METADATA_PREFIX) &&
+           !contains(ConlluParser.MULTIWORD_TOKEN_DELIMITER)
+
 }

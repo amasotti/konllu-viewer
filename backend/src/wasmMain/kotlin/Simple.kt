@@ -12,12 +12,14 @@ fun main() {
     val raw = getSampleText()
     val parsed = ConlluParser.parseConlluFile(raw)
 
+    //println("PARSED: ${parsed.sentences[0].tokens[0]}")
+
     document.createElement("p").apply {
-        appendText("Hello, ${parsed.sentences[1]}!<br>")
+        appendText("Hello, ${parsed.sentences[0]}!<br>")
     }.let(document.body!!::appendChild)
 
 
-    val svgGenerator = SVGGenerator(parsed.sentences[1])
+    val svgGenerator = SVGGenerator(parsed.sentences[0])
     val svg = svgGenerator.render()
 
     val divElement = document.createElement("div") as HTMLDivElement
@@ -32,6 +34,6 @@ fun main() {
 @JsExport
 fun generateSvg(fileContent: String) : String {
     val parsed = ConlluParser.parseConlluFile(fileContent)
-    val svgGenerator = SVGGenerator(parsed.sentences[1])
+    val svgGenerator = SVGGenerator(parsed.sentences[0])
     return svgGenerator.render()
 }
