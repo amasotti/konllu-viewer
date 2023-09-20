@@ -108,7 +108,10 @@ class SVGGenerator(private val parsedSentence: Sentence) {
                 )
 
                 // Add the labels for the paths
-                val labelX = (calculateMiddleOfRectangle(token.id) + calculateMiddleOfRectangle(token.id) - offsetBezierX).half()
+                val labelX = (
+                        calculateMiddleOfRectangle(token.id) +
+                        calculateMiddleOfRectangle(token.id) -
+                        offsetBezierX).half()
                 val labelY = (Y_OFFSET - (BEZIER_Y_INCREMENT * parsedSentence.tokens.size)).minus(LABEL_VERTICAL_OFFSET)
 
                 val labelText = "ROOT | ${token.upos}"
