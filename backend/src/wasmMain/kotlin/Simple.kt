@@ -2,7 +2,7 @@ import kotlinx.browser.document
 import kotlinx.dom.appendText
 import org.w3c.dom.HTMLDivElement
 import parser.ConlluParser
-import svg.SVGCreator
+import svg.SVGGenerator
 
 fun main() {
 
@@ -17,7 +17,7 @@ fun main() {
     }.let(document.body!!::appendChild)
 
 
-    val svgGenerator = SVGCreator(parsed.sentences[0])
+    val svgGenerator = SVGGenerator(parsed.sentences[1])
     val svg = svgGenerator.render()
 
     val divElement = document.createElement("div") as HTMLDivElement
@@ -32,6 +32,6 @@ fun main() {
 @JsExport
 fun generateSvg(fileContent: String) : String {
     val parsed = ConlluParser.parseConlluFile(fileContent)
-    val svgGenerator = SVGCreator(parsed.sentences[0])
+    val svgGenerator = SVGGenerator(parsed.sentences[1])
     return svgGenerator.render()
 }

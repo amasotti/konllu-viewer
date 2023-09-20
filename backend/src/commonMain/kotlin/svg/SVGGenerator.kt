@@ -31,7 +31,7 @@ const val PATH_CSS_CLASS = "relation"
 
 
 
-class SVGCreator(private val parsedSentence: Sentence) {
+class SVGGenerator(private val parsedSentence: Sentence) {
     private val svgBlock: SVGBlock = SVGBlock()
 
     /**

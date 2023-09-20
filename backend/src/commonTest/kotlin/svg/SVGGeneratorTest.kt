@@ -3,7 +3,6 @@ package svg
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import models.Sentence
-import models.Token
 import models.tokenMock1
 import models.tokenMock2
 
@@ -19,7 +18,7 @@ class SVGGeneratorTest {
                 tokenMock2
             )
         )
-        val svgCreator = SVGCreator(sentence)
+        val svgGenerator = SVGGenerator(sentence)
         val expectedSVG = """
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="600" height="500">
 <rect 
@@ -84,7 +83,7 @@ style="stroke: black; stroke-width: 1px; fill: transparent;" />
 </svg>"""
 
         // Act
-        val actualSVG = svgCreator.render()
+        val actualSVG = svgGenerator.render()
 
         // Assert
         assertEquals(expectedSVG.trimIndent(), actualSVG.trimIndent())
