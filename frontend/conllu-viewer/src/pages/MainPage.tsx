@@ -5,6 +5,7 @@ import { InputOptionsStack } from "../components/InputOptionsStack.tsx";
 import {FileUploadComponent} from "../components/FileUpload.tsx";
 import {PasteArea} from "../components/PasteArea.tsx";
 import {ActionButtonStack} from "../components/ActionButtonStack.tsx";
+// @ts-ignore
 import myModule from "../../public/KoNLLU-Viewer-wasm.mjs";
 
 export function MainPage() {
@@ -39,13 +40,12 @@ export function MainPage() {
 
                 {/* Choose input method */}
                 {inputMethod === "upload"
-                    ? <FileUploadComponent/>
+                    ? <FileUploadComponent onFileUpload={(t:string) => {console.log("Text " + t)} }/>
                     : <PasteArea onTextChange={handleTextChange}/>
                 }
 
                 <ActionButtonStack
                     onSubmit={handleGenerateSvg}
-                    onReset={resetText}
                 />
 
                 <div dangerouslySetInnerHTML={{ __html: svgHtml }} />

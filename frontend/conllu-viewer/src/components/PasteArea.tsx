@@ -1,6 +1,7 @@
 import { Textarea } from "@chakra-ui/react";
 import {useState} from "react";
 
+// @ts-ignore
 export function PasteArea({onTextChange}) {
     const [textAreaValue, setTextAreaValue] = useState("");
 
