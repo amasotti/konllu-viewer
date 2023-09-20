@@ -2,6 +2,8 @@ package models
 
 import extensions.getConlluField
 
+typealias FeatureExtractor = (String) -> Map<String, String>?
+
 data class Token(
     val id: Int,
     val form: String,
@@ -14,22 +16,30 @@ data class Token(
     val deps: String?,
     val misc: Map<String,String>?
 ) {
+
     companion object {
+        /**
+         * Create a token from a CoNLL-U line
+         *
+         * @param line The CoNLL-U line as a string
+         * @param extractFeatures A function to extract features from a string building a map
+         * @param handleHeadRelation A function to handle the head relation
+         * @param debug A boolean to enable debugging
+         *
+         * @return A token instance
+         *
+         */
         fun fromString(
             line: String,
-            extractFeatures: (String) -> Map<String, String>?,
+            extractFeatures: FeatureExtractor,
             handleHeadRelation: (String) -> Int,
             debug: Boolean = false
         ): Token {
             val fields = line.split("\t")
 
-            if (debug) {
-                debugLog(fields, extractFeatures, handleHeadRelation)
-            }
+            if (debug) debugLog(fields, extractFeatures, handleHeadRelation)
 
-            require(fields.size == ConlluField.entries.size) {
-                "Invalid CoNLL-U line: $line"
-            }
+            validate(line, fields)
 
 
             return Token(
@@ -46,10 +56,22 @@ data class Token(
             )
         }
 
+        private fun validate(line: String, fields: List<String>) {
+            require(fields.size == ConlluField.entries.size) {
+                "Invalid CoNLL-U line: $line"
+            }
+        }
+
         /**
          * Debugging function to print out the fields of a token
+         *
+         * @param fields The fields of a token
+         * @param extractFeatures A function to extract features from a string building a map
+         * @param handleHeadRelation A function to handle the head relation
+         *
+         * @return Unit
          */
-        private fun debugLog(fields: List<String>, extractFeatures: (String) -> Map<String, String>?, handleHeadRelation: (String) -> Int) {
+        private fun debugLog(fields: List<String>, extractFeatures: FeatureExtractor, handleHeadRelation: (String) -> Int) {
             println("FieldSize: " + fields.size + "\n")
             println("ID: " + fields.getConlluField(ConlluField.ID) + "\n")
             println("Form: " + fields.getConlluField(ConlluField.FORM) + "\n")

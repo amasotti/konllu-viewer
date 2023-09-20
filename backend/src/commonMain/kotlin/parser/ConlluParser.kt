@@ -62,7 +62,7 @@ object ConlluParser {
         }
     }
 
-    private fun extractFeatures(feats: String): Map<String, String>? {
+    fun extractFeatures(feats: String): Map<String, String>? {
         return if (feats == "_" || feats.isBlank()) null
         else feats
             .split("|")
@@ -73,7 +73,7 @@ object ConlluParser {
             }
     }
 
-    private fun handleHeadRelation(headDep: String) : Int {
+    fun handleHeadRelation(headDep: String) : Int {
         return if (headDep == "_") -1 else headDep.toInt()
     }
 
