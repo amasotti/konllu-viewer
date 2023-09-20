@@ -1,6 +1,8 @@
 import {Box, Text} from "@chakra-ui/react";
 import {useDropzone} from "react-dropzone";
 
+
+// @ts-ignore
 export function FileUploadComponent({ onFileUpload }) {
 
     const { getRootProps, getInputProps } = useDropzone({

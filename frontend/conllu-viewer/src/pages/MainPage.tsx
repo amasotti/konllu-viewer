@@ -7,23 +7,27 @@ import {PasteArea} from "../components/PasteArea.tsx";
 import {ActionButtonStack} from "../components/ActionButtonStack.tsx";
 // @ts-ignore
 import myModule from "../../public/KoNLLU-Viewer-wasm.mjs";
+import {useData} from "../providers/DataContext.tsx";
+import { useNavigate } from "react-router-dom";
 
 export function MainPage() {
+    const navigate = useNavigate();
     const [inputMethod, setInputMethod] = useState('upload');
-    const [svgHtml, setSvgHtml] = useState("");
-    const [text, setText] = useState("");
+    const { setTextData } = useData();
 
     const handleTextChange = (newText: string) => {
-        setText(newText);
+        setTextData(newText);
     };
 
-    const resetText = () => {
-        setText("");
+    const handleUpload = (file: string) => {
+        setTextData(file);
+        navigate("/result")
     }
 
-    const handleGenerateSvg = () => {
-        const generatedSvgHtml = myModule.generateSvg(text);
-        setSvgHtml(generatedSvgHtml);
+    const goToResultPage = () => {
+        // const generatedSvgHtml = myModule.generateSvg(text);
+        // setSvgHtml(generatedSvgHtml);
+        navigate("/result");
     };
 
 
@@ -40,15 +44,13 @@ export function MainPage() {
 
                 {/* Choose input method */}
                 {inputMethod === "upload"
-                    ? <FileUploadComponent onFileUpload={(t:string) => {console.log("Text " + t)} }/>
+                    ? <FileUploadComponent onFileUpload={handleUpload}/>
                     : <PasteArea onTextChange={handleTextChange}/>
                 }
 
-                <ActionButtonStack
-                    onSubmit={handleGenerateSvg}
-                />
-
-                <div dangerouslySetInnerHTML={{ __html: svgHtml }} />
+                {inputMethod === "text" ? <ActionButtonStack
+                    onSubmit={goToResultPage}
+                /> : null}
 
             </VStack>
         </>

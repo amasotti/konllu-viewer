@@ -14,8 +14,8 @@ export function PasteArea({onTextChange}) {
         <Textarea
             size="lg"
             placeholder="Paste your CoNLL-U text here."
-            w='800px'
-            h='300px'
+            w='80vw'
+            h='10em'
             value={textAreaValue}
             onChange={handleChange}
         />

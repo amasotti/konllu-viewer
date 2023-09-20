@@ -9,3 +9,23 @@
   cursor: pointer;
   box-shadow: 0 0 5px 2px #667786;
 }
+
+
+.lemma {
+  fill: #535bf2;
+  font-size: 1.5rem;
+}
+
+.form {
+  font-style: italic;
+  fill: #f2545b;
+  font-size: 1.5rem;
+  dominant-baseline: middle;
+}
+
+.relation {
+  /* It's a SVG Path, make it shorter and more visible */
+    stroke-dasharray: 5, 5;
+    stroke-width: 2;
+    stroke: #667786;
+}

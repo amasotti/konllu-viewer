@@ -5,19 +5,21 @@ import {Footer} from "./components/Footer";
 import {Header} from "./components/Header.tsx";
 import { ResultPage } from './pages/ResultPage.tsx';
 import './App.css'
+import {DataProvider} from "./providers/DataContext.tsx";
 
 function App() {
   return (
     <>
         <ChakraProvider>
             <Header/>
-            <Routes>
-                <Route path="/" element={<MainPage />}>
-                    <Route index element={<MainPage />} />
-                    <Route path="about" element={<ResultPage />} />
-                </Route>
-            </Routes>
-
+                <DataProvider>
+                    <Routes>
+                        <Route path="/" element={<MainPage />}>
+                            {/*<Route index element={<MainPage />} />*/}
+                        </Route>
+                        <Route path="result" element={<ResultPage />} />
+                    </Routes>
+                </DataProvider>
             <Footer/>
 
         </ChakraProvider>
