@@ -3,6 +3,7 @@ package models
 import extensions.getConlluField
 
 typealias FeatureExtractor = (String) -> Map<String, String>?
+const val TOKEN_DELIMITER = "\t"
 
 data class Token(
     val id: Int,
@@ -35,7 +36,7 @@ data class Token(
             handleHeadRelation: (String) -> Int,
             debug: Boolean = false
         ): Token {
-            val fields = line.split("\t")
+            val fields = line.split(TOKEN_DELIMITER)
 
             if (debug) debugLog(fields, extractFeatures, handleHeadRelation)
 

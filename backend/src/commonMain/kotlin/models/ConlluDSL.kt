@@ -70,4 +70,5 @@ class DocumentBuilder {
             list.add(SentenceBuilder().apply(block).build())
         }
     }
+
 }
