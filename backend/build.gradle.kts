@@ -1,7 +1,9 @@
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     kotlin("multiplatform") version "1.9.10"
+    id("io.gitlab.arturbosch.detekt") version("1.23.1")
 }
 
 repositories {
@@ -29,5 +31,11 @@ kotlin {
         }
         val wasmMain by getting
         val wasmTest by getting
+    }
+}
+
+tasks.register("detektAll") {
+    allprojects {
+        this@register.dependsOn(tasks.withType<Detekt>())
     }
 }
