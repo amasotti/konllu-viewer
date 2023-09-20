@@ -19,6 +19,8 @@ const val DEFAULT_FILL_COLOR = "transparent"
 class SVGBlock: SVGElement {
     private val elements: MutableList<SVGElement> = mutableListOf()
 
+    fun getElementSize(): Int = elements.size
+
     fun addElement(element: SVGElement) {
         elements.add(element)
     }

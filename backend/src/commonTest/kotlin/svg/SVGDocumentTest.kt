@@ -17,7 +17,7 @@ class SVGDocumentTest {
         svgBlock.addElement(svgElement)
 
         // Assert
-        assertEquals(1, svgBlock.elements.size)
+        assertEquals(1, svgBlock.getElementSize())
     }
 
 
@@ -32,7 +32,7 @@ class SVGDocumentTest {
         svgBlock.removeElement(svgElement)
 
         // Assert
-        assertEquals(0, svgBlock.elements.size)
+        assertEquals(0, svgBlock.getElementSize())
     }
 
     @Test
