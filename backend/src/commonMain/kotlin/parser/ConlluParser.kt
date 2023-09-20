@@ -3,6 +3,7 @@ package parser
 import models.*
 
 object ConlluParser {
+
     fun parseConlluFile(fileContent: String): Document {
         val documentLines = fileContent.lines()
         val sentenceStartIndex = documentLines.indexOfFirst { it.startsWith("#") }

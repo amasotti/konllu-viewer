@@ -45,9 +45,16 @@ fun main() {
 
     document.body!!.appendChild(divElement)
 
-
-
 }
+
+@JsName("generateSvg")
+@JsExport
+fun generateSvg(fileContent: String) : String {
+    val parsed = ConlluParser.parseConlluFile(fileContent)
+    val svgGenerator = SVGCreator(parsed.sentences[0])
+    return svgGenerator.render()
+}
+
 
 fun greet() = "world"
 
