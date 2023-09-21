@@ -13,7 +13,7 @@ jobs:
       run:
         working-directory: ./backend
     env:
-      CHROME_BIN: chrome
+      CHROME_BIN: chromium
 
     steps:
     - name: Checkout code
@@ -35,7 +35,7 @@ jobs:
       run: chmod +x gradlew
     
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew clean build
     
     - name: Run tests with Gradle
       run: ./gradlew allTests

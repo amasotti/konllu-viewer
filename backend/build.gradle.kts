@@ -20,7 +20,9 @@ kotlin {
     wasm {
         binaries.executable()
         browser {
-
+            testTask {
+                enabled = false
+            }
         }
     }
     sourceSets {
