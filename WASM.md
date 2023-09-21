@@ -63,3 +63,8 @@ Article 148 (October 2022), 27 pages. https://doi.org/10.1145/3563311
 ## Examples and Demos
 
 - [D3Wasm](https://github.com/gabrielcuvillier/d3wasm/tree/master/neo) - Doom3 as c++ game running in the browser
+
+
+## Previous attempts
+
+- [ASM.js](http://asmjs.org/)
