@@ -34,14 +34,20 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
-    - name: Build with Gradle
-      run: ./gradlew clean build
+    - name: Gradle clean
+      run: ./gradlew clean 
     
     - name: Run tests with Gradle
       run: ./gradlew allTests
-    
+      
     - name: Run detekt
       uses: ./gradlew detektAll
+
+    - name: Update Yarn Store
+      run: ./gradlew kotlinUpgradeYarnLock
+
+    - name: Build
+      run: ./gradlew build -x test
     
     - name: Serve WASM
       run: |

@@ -1,15 +1,13 @@
 # KoNLL-U Viewer
 
-## Introduction
+## Overview
 
-Konllu-Viewer is a proof-of-concept application that demonstrates the integration of a Kotlin backend 
-compiled with WebAssembly (WASM) into a React frontend. 
+CoNLL-U Viewer is a proof-of-concept (PoC) application that demonstrates the integration of a Kotlin backend compiled 
+with WebAssembly (WASM) into a React frontend. 
 
-It is born from curiosity and willing to experimentate with such an amazing technology as [WASM](https://webassembly.org/)
+**Please note**: This project is experimental and not a ready-to-use application. It was born out of curiosity and a willingness to experiment with such an amazing technology as [WASM](https://webassembly.org/). While everyone is invited to explore the code, no guarantees are provided regarding its functionality or completeness.
 
-The application allows users to visualize linguistic texts annotated in the CoNLL-U format.
-
-
+The application aims to allow users to visualize linguistic texts annotated in the CoNLL-U format.
 
 ## Repo Structure
 
