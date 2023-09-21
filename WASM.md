@@ -68,3 +68,9 @@ Article 148 (October 2022), 27 pages. https://doi.org/10.1145/3563311
 ## Previous attempts
 
 - [ASM.js](http://asmjs.org/)
+
+### What JS is missing
+
+- Important features for performance critical operations (e.g. 64bit integers operations)
+- multi-threading
+- shared memory
