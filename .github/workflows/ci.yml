@@ -38,13 +38,13 @@ jobs:
       run: ./gradlew clean 
     
     - name: Run tests with Gradle
-      run: ./gradlew allTests
+      run: ./gradlew allTests --info
 
     - name: Update Yarn Store
       run: ./gradlew kotlinUpgradeYarnLock
 
     - name: Build
-      run: ./gradlew build -x test
+      run: ./gradlew build -x allTests
     
     - name: Serve WASM
       run: |
