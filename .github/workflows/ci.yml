@@ -68,6 +68,9 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     needs: build-backend
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     defaults:
       run:
         working-directory: ./frontend/conllu-viewer
@@ -101,9 +104,14 @@ jobs:
     - name: Build project
       run: yarn build
 
-    # Deploy to GitHub Pages
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Store build artifact files
+      uses: actions/upload-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend/conllu-viewer/dist
+        name: gh-build
+        path: ./frontend/conllu-viewer/dist
+        if-no-files-found: error    
+
+    # Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
