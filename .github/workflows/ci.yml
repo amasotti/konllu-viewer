@@ -105,11 +105,11 @@ jobs:
       run: yarn build
 
     - name: Store build artifact files
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-pages-artifact@v1
       with:
         name: gh-build
         path: ./frontend/conllu-viewer/dist
-        if-no-files-found: error    
+        retention-days: 1
 
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
