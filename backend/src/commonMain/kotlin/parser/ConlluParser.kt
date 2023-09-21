@@ -30,10 +30,14 @@ object ConlluParser {
         val lines = fileContent.lines()
 
         // Find the index of the first sentence
-        val sentenceStartIndex = lines.indexOfLast { it.startsWith(DOCUMENT_METADATA_PREFIX) }
+        var sentenceStartIndex = lines.indexOfLast { it.startsWith(DOCUMENT_METADATA_PREFIX) }
+
+        if (sentenceStartIndex == -1) {
+            sentenceStartIndex = 0
+        }
 
         // Split the file into metadata and sentences
-        val metadataChunks : List<String> = lines.take(maxOf(sentenceStartIndex + 1, 0))
+        val metadataChunks : List<String> = lines.take(sentenceStartIndex)
         val sentenceChunks: List<String> = lines
                 .drop(sentenceStartIndex) // Ignore metadata
                 .joinToString("\n") // Join all lines into a single string
@@ -56,6 +60,10 @@ object ConlluParser {
     private fun DocumentBuilder.extractDocumentMetadata(lines: List<String>) {
 
         val metadataLines = lines.filter { it.startsWith(DOCUMENT_METADATA_PREFIX) }
+
+        if (metadataLines.isEmpty()) {
+            return
+        }
 
         metadataLines.forEach {
             val (key, value) = extractMetadata(it, DOCUMENT_METADATA_PREFIX, DOCUMENT_METADATA_DELIMITER)
