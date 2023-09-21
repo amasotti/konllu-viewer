@@ -38,24 +38,24 @@ jobs:
       run: ./gradlew clean 
     
     - name: Run tests with Gradle
-      run: ./gradlew allTests --info
+      run: ./gradlew allTests
 
     - name: Update Yarn Store
       run: ./gradlew kotlinUpgradeYarnLock
 
     - name: Build
-      run: ./gradlew build -x allTests
+      run: ./gradlew build -x allTests --info
     
     - name: Serve WASM
       run: |
-        yes | cp -R ./build/js/packages/KoNLLU-Viewer-wasm/kotlin/* ../frontend/conllu-viewer/public/
+        cp -R ./build/js/packages/KoNLLU-Viewer-wasm/kotlin/* ../frontend/conllu-viewer/public/
 
   build-frontend:
     runs-on: ubuntu-latest
     needs: build-backend
     defaults:
       run:
-        working-directory: ./frontend/conllu-viewer
+        working-directory: ../frontend/conllu-viewer
 
     steps:
     # Build React frontend
