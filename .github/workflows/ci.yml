@@ -46,9 +46,6 @@ jobs:
     - name: Build
       run: ./gradlew build -x allTests --info
 
-    # To be removed
-    - run: ls -alh build/js/packages/KoNLLU-Viewer-wasm/kotlin/
-
     - name: Store wasm files
       uses: actions/upload-artifact@v3
       with:
@@ -88,12 +85,11 @@ jobs:
       run: echo ${{steps.download.outputs.download-path}}
     
     # To be removed    
-    - run: ls -alh
-      working-directory: tmp
+    - run: ls -alh ${{steps.download.outputs.download-path}}
     
     - name: Copy and lst imported files
       run: |
-        cp tmp/* public/
+        cp -r ${{steps.download.outputs.download-path}}/* public/
 
     - name: Install dependencies
       run: yarn install --immutable
