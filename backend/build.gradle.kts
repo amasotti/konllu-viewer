@@ -15,6 +15,7 @@ group = "nlp.amasotti"
 version = "1.0-SNAPSHOT"
 
 kotlin {
+    jvm()
     @OptIn(ExperimentalWasmDsl::class)
     wasm {
         binaries.executable()
@@ -31,8 +32,10 @@ kotlin {
         }
         val wasmMain by getting
         val wasmTest by getting
+        val jvmMain by getting
+        val jvmTest by getting
+        }
     }
-}
 
 tasks.register("detektAll") {
     allprojects {

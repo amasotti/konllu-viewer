@@ -6,7 +6,6 @@ import {useDropzone} from "react-dropzone";
 export function FileUploadComponent({ onFileUpload }) {
 
     const { getRootProps, getInputProps } = useDropzone({
-        accept: '.conllu',
         onDrop: (acceptedFiles) => {
             acceptedFiles.forEach((file) => {
                 const reader = new FileReader();
