@@ -6,7 +6,10 @@ export function PasteArea({ onTextChange }) {
   const [textAreaValue, setTextAreaValue] = useState('');
 
   const handleChange = (e: Event) => {
-    const newValue = e.target!!.value;
+
+    if (e.target === null) return;
+
+    const newValue = e.target.value;
     setTextAreaValue(newValue);
     onTextChange(newValue); // Pass the new value to the parent component
   };
