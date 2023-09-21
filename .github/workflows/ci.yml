@@ -80,13 +80,6 @@ jobs:
         name: wasm-files
         path: tmp/
     
-    # To be removed    
-    - name: 'Echo download path'
-      run: echo ${{steps.download.outputs.download-path}}
-    
-    # To be removed    
-    - run: ls -alh ${{steps.download.outputs.download-path}}
-    
     - name: Copy and lst imported files
       run: |
         cp -r ${{steps.download.outputs.download-path}}/* public/
@@ -97,9 +90,9 @@ jobs:
     - name: Build project
       run: yarn build
 
-    # # Deploy to GitHub Pages
-    # - name: Deploy
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_dir: ./frontend/build  # Replace with your frontend build directory
+    # Deploy to GitHub Pages
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GH_PAGE_DEPLOY_KEY }}
+        publish_dir: ./frontend/dist
