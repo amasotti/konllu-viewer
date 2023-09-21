@@ -1,4 +1,7 @@
 # KoNLL-U Viewer
+![KOTLIN](https://img.shields.io/badge/_-KOTLIN-A97BFF.svg?style=for-the-badge)
+![WEBASSEMBLY](https://img.shields.io/badge/_-WASM-04133B.svg?style=for-the-badge)
+![WEBASSEMBLY](https://img.shields.io/badge/_-REACT-2B7489.svg?style=for-the-badge)
 
 ## Overview
 

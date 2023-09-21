@@ -39,9 +39,6 @@ jobs:
     
     - name: Run tests with Gradle
       run: ./gradlew allTests
-      
-    - name: Run detekt
-      uses: ./gradlew detektAll
 
     - name: Update Yarn Store
       run: ./gradlew kotlinUpgradeYarnLock
