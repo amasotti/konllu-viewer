@@ -53,8 +53,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: wasm-files
-        path: build/js/packages/KoNLLU-Viewer-wasm/kotlin/*
+        path: build/js/packages/KoNLLU-Viewer-wasm/kotlin/
         retention-days: 1
+        if-no-files-found: error
 
   build-frontend:
     runs-on: ubuntu-latest
