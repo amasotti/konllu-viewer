@@ -10,7 +10,6 @@
   box-shadow: 0 0 5px 2px #667786;
 }
 
-
 .lemma {
   fill: #535bf2;
   font-size: 1.5rem;
@@ -25,13 +24,13 @@
 
 .relation {
   /* It's a SVG Path, make it shorter and more visible */
-    stroke-dasharray: 5, 5;
-    stroke-width: 2;
-    stroke: #667786;
+  stroke-dasharray: 5, 5;
+  stroke-width: 2;
+  stroke: #667786;
 }
 
 .sentenceText {
   font-size: 1.2em;
   font-style: italic;
-  font-family: "DejaVu Serif"
+  font-family: 'DejaVu Serif';
 }

@@ -1,31 +1,31 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface DataContextProps {
-    textData: string;
-    setTextData: React.Dispatch<React.SetStateAction<string>>;
+  textData: string;
+  setTextData: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
 
 export const useData = () => {
-    const context = useContext(DataContext);
-    if (!context) {
-        throw new Error("useData must be used within a DataProvider");
-    }
-    return context;
+  const context = useContext(DataContext);
+  if (!context) {
+    throw new Error('useData must be used within a DataProvider');
+  }
+  return context;
 };
 
 interface DataProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
-    const [textData, setTextData] = useState<string>("");
+  const [textData, setTextData] = useState<string>('');
 
-    const value = {
-        textData,
-        setTextData,
-    };
+  const value = {
+    textData,
+    setTextData
+  };
 
-    return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };

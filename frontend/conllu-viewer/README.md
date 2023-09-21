@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the frontend for the CoNLL-U Viewer application. 
+This is the frontend for the CoNLL-U Viewer application.
 It's built using React and Chakra UI. The frontend serves as the UI for visualizing CoNLL-U files.
 
 ## Installation
