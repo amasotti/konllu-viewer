@@ -13,7 +13,7 @@ jobs:
       run:
         working-directory: ./backend
     env:
-      CHROME_BIN: chromium
+      CHROME_BIN: chrome
 
     steps:
     - name: Checkout code
@@ -46,11 +46,14 @@ jobs:
     - name: Build
       run: ./gradlew build -x allTests --info
 
+    # To be removed
+    - run: ls -alh build/js/packages/KoNLLU-Viewer-wasm/kotlin/
+
     - name: Store wasm files
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v3
       with:
         name: wasm-files
-        path: ./build/js/packages/KoNLLU-Viewer-wasm/kotlin/*
+        path: /build/js/packages/KoNLLU-Viewer-wasm/kotlin/*
         retention-days: 1
 
   build-frontend:
@@ -69,18 +72,27 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
+    
+    - run: mkdir tmp
 
     - name: Collect artifacts
       uses: actions/download-artifact@master
+      id: download
       with:
         name: wasm-files
-        path: ./tmp/
+        path: tmp/
     
-    - run: ls -alh ./tmp/
+    # To be removed    
+    - name: 'Echo download path'
+      run: echo ${{steps.download.outputs.download-path}}
+    
+    # To be removed    
+    - run: ls -alh
+      working-directory: tmp
     
     - name: Copy and lst imported files
       run: |
-        cp ./tmp/* ./public/
+        cp tmp/* public/
 
     - name: Install dependencies
       run: yarn install --immutable
