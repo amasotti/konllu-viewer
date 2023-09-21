@@ -77,7 +77,7 @@ export function ResultPage() {
                                 <Text fontSize='md' fontWeight='bold'>TEXT SENTENCE {index}</Text>
                             </CardHeader>
                             <CardBody className='sentenceText'>
-                                {KonlluViewer.serveSentenceText(textData, index)}
+                                {getSentenceText(textData, index)}
                             </CardBody>
                         </Card>
 
@@ -86,7 +86,7 @@ export function ResultPage() {
                                     <Text fontSize='md' fontWeight='bold'>METADATA SENTENCE {index}</Text>
                                 </CardHeader>
                                 <CardBody className='sentenceText'>
-                                    {KonlluViewer.serveSentenceMetadata(textData, index)}
+                                    {getSentenceMetadata(textData, index)}
                                 </CardBody>
                             </Card>
 
@@ -94,69 +94,13 @@ export function ResultPage() {
                                 <CardHeader>
                                     <Text fontSize='md' fontWeight='bold'>REPRESENTATION SENTENCE {index}</Text>
                                 </CardHeader>
-                                <CardBody dangerouslySetInnerHTML={{ __html: KonlluViewer.serveSentenceRepresentation(textData, index) }} >
+                                <CardBody dangerouslySetInnerHTML={{ __html: getSentenceRepresentation(textData, index) }} >
                                 </CardBody>
                             </Card>
                         </AccordionPanel>
                     </AccordionItem>
                 ))}
             </Accordion>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <h2>TEXT:</h2>
-            <div>
-                {wholeText.split("\n").map((line, index) => {return <p key={index}>{line}</p>})}
-            </div>
-
-
-            <div>
-                <h3>TEXT SENTENCE 0</h3>
-            <p>
-                { getSentenceText(0) }
-            </p>
-            </div>
-
-
-            <div>
-                <h3>METADATA SENTENCE 0</h3>
-                <p>
-                { getSentenceMetadata(0) }
-                </p>
-            </div>
-
-            <div>
-                <h3>REPRESENTATION SENTENCE 0</h3>
-                <div dangerouslySetInnerHTML={{ __html: getSentenceRepresentation(0) }} >
-                </div>
-            </div>
-
         </>
     );
 }

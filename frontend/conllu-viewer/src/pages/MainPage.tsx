@@ -6,7 +6,6 @@ import {FileUploadComponent} from "../components/FileUpload.tsx";
 import {PasteArea} from "../components/PasteArea.tsx";
 import {ActionButtonStack} from "../components/ActionButtonStack.tsx";
 // @ts-ignore
-import myModule from "../../public/KoNLLU-Viewer-wasm.mjs";
 import {useData} from "../providers/DataContext.tsx";
 import { useNavigate } from "react-router-dom";
 
@@ -25,8 +24,6 @@ export function MainPage() {
     }
 
     const goToResultPage = () => {
-        // const generatedSvgHtml = myModule.generateSvg(text);
-        // setSvgHtml(generatedSvgHtml);
         navigate("/result");
     };
 
