@@ -13,6 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../providers/DataContext';
 import { useEffect, useState } from 'react';
+// @ts-ignore
 import KonlluViewer from '../../public/KoNLLU-Viewer-wasm.mjs';
 
 export function ResultPage() {
@@ -56,8 +57,9 @@ export function ResultPage() {
           </Text>
         </CardHeader>
         <CardBody>
-          {wholeText.split('\n').map((line, index) => {
-            return <Text key={index}>{line}</Text>;
+          {wholeText.split('\n').map(line => {
+            const iterKey = Math.random();
+            return <Text key={"sent_" + iterKey}>{line}</Text>;
           })}
         </CardBody>
       </Card>
@@ -77,7 +79,7 @@ export function ResultPage() {
                     TEXT SENTENCE {index}
                   </Text>
                 </CardHeader>
-                <CardBody className="sentenceText">{getSentenceText(textData, index)}</CardBody>
+                <CardBody className="sentenceText">{getSentenceText(index)}</CardBody>
               </Card>
 
               <Card>
@@ -86,7 +88,7 @@ export function ResultPage() {
                     METADATA SENTENCE {index}
                   </Text>
                 </CardHeader>
-                <CardBody className="sentenceText">{getSentenceMetadata(textData, index)}</CardBody>
+                <CardBody className="sentenceText">{getSentenceMetadata(index)}</CardBody>
               </Card>
 
               <Card>
@@ -96,7 +98,7 @@ export function ResultPage() {
                   </Text>
                 </CardHeader>
                 <CardBody
-                  dangerouslySetInnerHTML={{ __html: getSentenceRepresentation(textData, index) }}
+                  dangerouslySetInnerHTML={{ __html: getSentenceRepresentation(index) }}
                 ></CardBody>
               </Card>
             </AccordionPanel>

@@ -1,15 +1,17 @@
 import { Textarea } from '@chakra-ui/react';
-import { useState } from 'react';
+import {ChangeEvent, ChangeEventHandler, useState} from 'react';
 
 // @ts-ignore
 export function PasteArea({ onTextChange }) {
   const [textAreaValue, setTextAreaValue] = useState('');
 
-  const handleChange = (e: Event) => {
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e: ChangeEvent<HTMLTextAreaElement>) => {
 
-    if (e.target === null) return;
+    const target = e.target;
 
-    const newValue = e.target.value;
+    if (target === null) return;
+
+    const newValue = target.value;
     setTextAreaValue(newValue);
     onTextChange(newValue); // Pass the new value to the parent component
   };
