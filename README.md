@@ -39,6 +39,8 @@ KoNLLU-Viewer/
 └── LICENSE
 ```
 
+![Visualization of the codebase](./diagram.svg)
+
 ## Installation
 
 ### Backend

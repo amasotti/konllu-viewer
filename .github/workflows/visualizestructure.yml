@@ -1,0 +1,32 @@
+name: Visualize Repository
+
+on:
+  workflow_run:
+    branches:
+      - main  # Replace with your default branch if not 'main'
+    workflows: ["Build and Deploy"]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+
+jobs:
+  visualize:
+    runs-on: ubuntu-latest
+    env:
+      CHROME_BIN: chrome
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Update diagram
+        uses: githubocto/repo-visualizer@0.7.1
+        with:
+          output_file: "./diagram.svg"
+          excluded_paths: ".idea, .github"
+          artifact_name: "repo-diagram"
